@@ -1,5 +1,6 @@
 import pygame
-import physics_engine as physics
+import bouncing_physics as physics
+import help
 import random
 import math
 
@@ -69,10 +70,10 @@ def update():
         else:
             # Check Game Line Intersect
             for line in level["score_lines"]:
-                if physics.lines_intersects((node.last_frame, node.position), line):
+                if help.lines_intersects([node.last_frame, node.position], line):
                     print("Win")
             for line in level["delete_lines"]:
-                if physics.lines_intersects((node.last_frame, node.position), line):
+                if help.lines_intersects([node.last_frame, node.position], line):
                     print("Die")
                     physics.Node.nodes.remove(node)
                     del node
@@ -155,12 +156,12 @@ def generate_random_wall():
         else:
             x_pos = -constants["screen_box"]
 
-    wall = physics.Wall((x_pos-50, y_pos), (x_pos+50, y_pos), color=(127, 127, 127), velocity=(x_vel, y_vel), spin=spin)
+    wall = physics.Wall([x_pos-50, y_pos], [x_pos+50, y_pos], color=(127, 127, 127), velocity=(x_vel, y_vel), spin=spin)
     wall.move_to(angle)
 
 
 turret = physics.Node(level["turret_pos"], (0, 0), (0, 0, 255), projection_length=5000, projection_color=(0, 255, 255), static=True)
-physics.Wall((650, 650), (650, 450), color=(127, 127, 127))
+physics.Wall([650, 650], [650, 450], color=(127, 127, 127))
 
 # main loop
 key_delay = 0
@@ -170,4 +171,3 @@ while run:
     update()
 
 pygame.quit()
-
