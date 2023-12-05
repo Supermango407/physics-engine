@@ -20,7 +20,7 @@ class Node(object):
     def nodes_in_triangle(a: list, b: list, c: list):
         node_list = []
         for node in Node.nodes:
-            if help.in_triangle(node.position, a, b, c):
+            if help.point_in_triangle(node.position, a, b, c):
                 node_list.append(node)
         return node_list
 
